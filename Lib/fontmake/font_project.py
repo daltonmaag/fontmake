@@ -179,7 +179,7 @@ class FontProject:
     @timer()
     def save_otfs(
             self, ufos, ttf=False, interpolatable=False, mti_paths=None,
-            is_instance=False, use_afdko=False, autohint=None, subset=True,
+            is_instance=False, use_afdko=False, autohint=None, subset=None,
             use_production_names=None):
         """Write OpenType binaries."""
 
@@ -203,6 +203,8 @@ class FontProject:
                 convertCubics=False)
             otf.save(otf_path)
 
+            if subset is None:
+                subset = (GLYPHS_PREFIX + 'Keep Glyphs') in ufo.lib
             if subset:
                 self.subset_otf_from_ufo(otf_path, ufo)
 
